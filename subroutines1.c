@@ -19,7 +19,7 @@ size_t str_len(char *s)
  * str_cpy - gets string copy
  * @des: destination buffer
  * @src: source string to be copied
- * 
+ *
  * Return: pointer to destination buffer
  */
 char *str_cpy(char *des, char *src)
