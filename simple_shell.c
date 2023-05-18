@@ -11,11 +11,10 @@ int main(int ac, char **av)
 	(void)ac;
 	char prompt[] = "SBush$ ";
 	ssize_t nread;
-	char *buff = NULL, *token;
-	size_t num = 0, i = 0;
+	char *buff = NULL;
+	size_t num = 0, check;
 	char **instruct;
 	pid_t c_pid;
-	int check;
 
 	while (1)
 	{
@@ -41,12 +40,10 @@ int main(int ac, char **av)
 				perror(instruct[0]);
 			} else
 				wait(&check);
-			
+
 			free(instruct);
-		}	
+		}
 		free(buff);
-
-
 	}
 	exit(0);
 }
