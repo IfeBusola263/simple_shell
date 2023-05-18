@@ -3,6 +3,7 @@
  * string_split - sets strings to tokens
  * @str: string to be worked on
  * @sep: the delimiter that seperates strings
+ * @len: length of string
  *
  * Return: an arra of strings
  */
@@ -13,17 +14,17 @@ char **string_split(char *str, char *sep, ssize_t len)
 	size_t numWords = 0;
 	char **instruct;
 	char *token;
-	
-	if (str[len - 1]== '\n') /* Null terminate string from getline */
+
+	if (str[len - 1] == '\n') /* Null terminate string from getline */
 		str[len - 1] = '\0';
 
 	for (i = 0; str[i]; i++) /* Number of words in string */
 	{
-		if (str[i]== ' ')
+		if (str[i] == ' ')
 			numWords++;
 	}
 	numWords = numWords + 2;
-	
+
 	/* memory for array of strings */
 	instruct = malloc(sizeof(char *) * numWords);
 	if (instruct == NULL)
@@ -40,7 +41,7 @@ char **string_split(char *str, char *sep, ssize_t len)
 		j++;
 	}
 	instruct[j] = NULL;
-	if (str_cmp(instruct[0],"exit") == 0)
+	if (str_cmp(instruct[0], "exit") == 0)
 	{
 		free(instruct);
 		exit(98);
@@ -51,13 +52,15 @@ char **string_split(char *str, char *sep, ssize_t len)
 /**
  * check_cmd - checks if a command exists or not
  * @instruct: the command to be checked
+ * @cmds: command argument
+ * @prognm: program name
  *
  * Return: nothing
  */
 int check_cmd(char *instruct, char **cmds, char *prognm)
 {
 	int check;
-	
+
 	if (str_cmp(instruct, "env") == 0)
 	{
 		print_en();
@@ -74,3 +77,27 @@ int check_cmd(char *instruct, char **cmds, char *prognm)
 	return (check);
 }
 
+/**
+ * _strcat - concatenate two strings
+ * @dest: first string
+ * @src: second string
+ *
+ * Return:destination
+ */
+char *_strcat(char *dest, const char *src)
+{
+	size_t i = 0;
+	size_t j = 0;
+
+	while (dest[i] != '\0')
+		i++;
+
+	while (src[j] != '\0')
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
