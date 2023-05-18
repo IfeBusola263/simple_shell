@@ -54,11 +54,83 @@ char *str_dup(char *s)
 	dup = malloc(sizeof(char) * str_len(s) + 1);
 	if (dup == NULL)
 	{
-		perror("memory could not be allocated");
+		write(STDERR_FILENO,"memory could not be allocated", 29);
 		return (NULL);
 	}
 	for (i = 0; s[i] != '\0'; i++)
 		dup[i] = s[i];
 	dup[i] = '\0';
 	return (dup);
+}
+/**
+ * _getline - reads string from file to a file descriptor
+ * @buff: address containing the string
+ * @num: number of bytes to be read
+ * @fildes: file descriptor
+ *
+ * Return: number of read characters
+ */
+ssize_t _getline(char **line, size_t *num, int fildes)
+{
+	ssize_t checkRead;
+	
+	if (line == NULL && *num != 0)
+	{
+		*line = malloc(sizeof(char) * *num);
+		if (line = NULL)
+		{
+			write(STDERR_FILENO,"memory could not be allocated", 29);
+			return (-1);
+		}
+
+		checkRead = read(fildes, *line, *num);
+		if (checkRead < 0)
+		{
+			write(STDERR_FILENO,"Could read from file", 20);
+			return (-1);
+		}
+	}
+	else if (num == 0 && line != NULL)
+	{
+		checkRead = read(fildes, *line, 2048);
+		if (checkRead == -1)
+		{
+			write(STDERR_FILENO,"Could read from file", 20);
+			return (-1);
+		}
+	}
+	else
+	{
+		checkRead = read(fildes, *line, *num);
+		if (checkRead == -1)
+		{
+			write(STDERR_FILENO,"Could read from file", 20);
+			return (-1);
+		}
+	}
+	return (checkRead);
+}
+
+/**
+ * _strcmp - compares two strings
+ * @s1: pointer to string
+ * @s2: pointer to second string
+ *
+ * Return: returns an Int
+ */
+
+int str_cmp(char *s1, char *s2)
+{
+	int cmp;
+	
+	cmp = 0;
+	while (s1[cmp] != '\0' && s2[cmp] != '\0')
+	{
+		if (s1[cmp] != s2[cmp])
+		{
+			return (s1[cmp] - s2[cmp]);
+		}
+		cmp++;
+	}
+	return (0);
 }
