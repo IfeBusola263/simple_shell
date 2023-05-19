@@ -11,22 +11,15 @@
 char **string_split(char *str, char *sep, ssize_t len)
 {
 	ssize_t i, j = 0;
-	size_t numWords = 0;
+	size_t numWords;
 	char **instruct;
 	char *token;
 
-	if (str[len - 1] == '\n') /* Null terminate string from getline */
+	if (str[len - 1] == '\n') /* get rid of newline char */
 		str[len - 1] = '\0';
 
-	for (i = 0; str[i]; i++) /* Number of words in string */
-	{
-		if (str[i] == ' ')
-			numWords++;
-	}
-	numWords = numWords + 2;
-
-	/* memory for array of strings */
-	instruct = malloc(sizeof(char *) * numWords);
+	numWords = numstr(str, ' ');
+	instruct = malloc(sizeof(char *) * numWords);/* memory for array of strings */
 	if (instruct == NULL)
 	{
 		perror("malloc");
@@ -51,29 +44,47 @@ char **string_split(char *str, char *sep, ssize_t len)
 
 /**
  * check_cmd - checks if a command exists or not
- * @instruct: the command to be checked
  * @cmds: command argument
- * @prognm: program name
  *
  * Return: nothing
  */
-int check_cmd(char *instruct, char **cmds, char *prognm)
+int check_cmd(char **cmds)
 {
 	int check;
+	char *cmd_route, *token, *dpath;
 
-	if (str_cmp(instruct, "env") == 0)
+	if (str_cmp(cmds[0], "env") == 0)
 	{
 		print_en();
 		return (-1);
 	}
 
-	check = access(instruct, X_OK);
-	if (check == -1)
-	{
-		perror(prognm);
-		free(cmds);
+	check = access(cmds[0], X_OK);
+	if (check == 0)
 		return (check);
+
+	dpath = getenv("PATH");
+	token = strtok(dpath, ":");
+
+	while (token != NULL)
+	{
+		cmd_route = malloc(sizeof(char) * 100);
+		if (cmd_route == NULL)
+			return (-1);
+		str_cpy(cmd_route, token);
+		_strcat(cmd_route, "/");
+		_strcat(cmd_route, cmds[0]);
+
+		check = access(cmd_route, X_OK);
+		if (check == 0)
+		{
+			cmds[0] = cmd_route;
+			return (0);
+		}
+		free(cmd_route);
+		token = strtok(NULL, ":");
 	}
+	perror(cmds[0]);
 	return (check);
 }
 
@@ -89,15 +100,44 @@ char *_strcat(char *dest, const char *src)
 	size_t i = 0;
 	size_t j = 0;
 
-	while (dest[i] != '\0')
-		i++;
-
-	while (src[j] != '\0')
+	if (dest != NULL && src != NULL)
 	{
-		dest[i] = src[j];
-		i++;
-		j++;
+		while (dest[i] != '\0')
+			i++;
+		while (src[j] != '\0')
+		{
+			dest[i] = src[j];
+			i++;
+			j++;
+		}
+		dest[i] = '\0';
+		return (dest);
 	}
-	dest[i] = '\0';
-	return (dest);
+	return (NULL);
+}
+/**
+ * numstr - counts the number of words in a string
+ *
+ * @str: string to be checked
+ * @sep: delimiter in the string
+ *
+ * Return: num strings including null terminator
+ */
+size_t numstr(char *str, char sep)
+{
+	int i = 0;
+	int count = 0;
+
+	if (str != NULL)
+	{
+		for (i = 0; str[i]; i++)
+		{
+			if (str[i] == sep)
+				count++;
+		}
+		if (count > 0)
+			return (count + 1);
+		return (1);
+	}
+	return (0);
 }

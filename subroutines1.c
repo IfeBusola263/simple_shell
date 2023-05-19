@@ -24,14 +24,11 @@ size_t str_len(char *s)
  */
 char *str_cpy(char *des, char *src)
 {
-	int i;
-
-	if (sizeof(des) >= str_len(src))
+	size_t i;
+	
+	for (i = 0; src[i] != '\0'; i++)
 	{
-		for (i = 0; src[i] != '\0'; i++)
-		{
-			des[i] = src[i];
-		}
+		des[i] = src[i];
 	}
 	des[i] = '\0';
 	return (des);
@@ -124,13 +121,17 @@ int str_cmp(char *s1, char *s2)
 	int cmp;
 	
 	cmp = 0;
-	while (s1[cmp] != '\0' && s2[cmp] != '\0')
+	if (s1 != NULL && s2 != NULL)
 	{
-		if (s1[cmp] != s2[cmp])
+		while (s1[cmp] != '\0' && s2[cmp] != '\0')
 		{
-			return (s1[cmp] - s2[cmp]);
+			if (s1[cmp] != s2[cmp])
+			{
+				return (s1[cmp] - s2[cmp]);
+			}
+			cmp++;
 		}
-		cmp++;
+		return (0);
 	}
-	return (0);
+	return (-1);
 }

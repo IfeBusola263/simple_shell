@@ -6,41 +6,30 @@
  *
  * Return: returns 0
  */
-int main(int ac, char **av)
+int main(int ac __attribute__((unused)), char **av __attribute((unused)))
 {
-	(void)ac;
-	char prompt[] = "SBush$ ";
 	ssize_t nread;
 	char *buff = NULL;
-	size_t num = 0, check;
+	size_t num = 0;
 	char **instruct;
-	pid_t c_pid;
 
 	while (1)
 	{
-		write(STDOUT_FILENO, prompt, sizeof(prompt));
+		prompt();
 		nread = getline(&buff, &num, stdin);
+		if (nread == 1 && buff[0] == '\n')
+			continue;
 		if (nread < 0)
-		{
 			exit(0);
-		}
-		instruct = string_split(buff, " ", nread);
-		if (check_cmd(instruct[0], instruct, av[0]) == -1)
+
+		if (cdry(buff) == 0)
 			continue;
 
-		else
-		{
-			c_pid = fork();
-			if (c_pid == -1)
-			{
-				perror("Error");
-			} else if (c_pid == 0)
-			{
-				(child(instruct[0], instruct, environ));
-				perror(instruct[0]);
-			} else
-				wait(&check);
-
+		instruct = string_split(buff, " ", nread);
+		if (check_cmd(instruct) == -1){
+			continue;
+		} else{
+			start_child(instruct);
 			free(instruct);
 		}
 		free(buff);
