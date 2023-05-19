@@ -51,7 +51,7 @@ char **string_split(char *str, char *sep, ssize_t len)
 int check_cmd(char **cmds)
 {
 	int check;
-	char *cmd_route, *token, *dpath;
+	char *cmd_route, *token, *dpath = NULL;
 
 	if (str_cmp(cmds[0], "env") == 0)
 	{
@@ -64,10 +64,14 @@ int check_cmd(char **cmds)
 		return (check);
 
 	dpath = getenv("PATH");
+	printf("%s\n", dpath);
+	printf("get : %s\n", getenv("PATH"));
 	token = strtok(dpath, ":");
+	printf("Got here 1\n");
 
 	while (token != NULL)
 	{
+		printf("Got here 2\n");
 		cmd_route = malloc(sizeof(char) * 100);
 		if (cmd_route == NULL)
 			return (-1);
@@ -83,6 +87,7 @@ int check_cmd(char **cmds)
 		}
 		free(cmd_route);
 		token = strtok(NULL, ":");
+		printf("Got here 3\n");
 	}
 	perror(cmds[0]);
 	return (check);

@@ -34,10 +34,11 @@ int cdry(char *cmds)
 	}
 	else if (cmds[0] == 'c' && cmds[1] == 'd' && cmds[2] == ' ')
 	{
-		for (i = 0; cmds[i] != '\n';)
+		for (i = 0; cmds[i] != '\0';)
 			i++;
 		cmds[i - 1] = '\0';
 		str_cpy(fileptr, (cmds + 3));
+		printf("%s\n ", fileptr);
 		if (chdir(fileptr) < 0)
 		{
 			perror("chdir");
