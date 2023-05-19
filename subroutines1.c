@@ -25,7 +25,7 @@ size_t str_len(char *s)
 char *str_cpy(char *des, char *src)
 {
 	size_t i;
-	
+
 	for (i = 0; src[i] != '\0'; i++)
 	{
 		des[i] = src[i];
@@ -51,7 +51,7 @@ char *str_dup(char *s)
 	dup = malloc(sizeof(char) * str_len(s) + 1);
 	if (dup == NULL)
 	{
-		write(STDERR_FILENO,"memory could not be allocated", 29);
+		write(STDERR_FILENO, "memory could not be allocated", 29);
 		return (NULL);
 	}
 	for (i = 0; s[i] != '\0'; i++)
@@ -61,29 +61,29 @@ char *str_dup(char *s)
 }
 /**
  * _getline - reads string from file to a file descriptor
- * @buff: address containing the string
  * @num: number of bytes to be read
  * @fildes: file descriptor
+ * @line: array of string
  *
  * Return: number of read characters
  */
 ssize_t _getline(char **line, size_t *num, int fildes)
 {
 	ssize_t checkRead;
-	
+
 	if (line == NULL && *num != 0)
 	{
 		*line = malloc(sizeof(char) * *num);
-		if (line = NULL)
+		if (line == NULL)
 		{
-			write(STDERR_FILENO,"memory could not be allocated", 29);
+			write(STDERR_FILENO, "memory could not be allocated", 29);
 			return (-1);
 		}
 
 		checkRead = read(fildes, *line, *num);
 		if (checkRead < 0)
 		{
-			write(STDERR_FILENO,"Could read from file", 20);
+			write(STDERR_FILENO, "Could read from file", 20);
 			return (-1);
 		}
 	}
@@ -92,7 +92,7 @@ ssize_t _getline(char **line, size_t *num, int fildes)
 		checkRead = read(fildes, *line, 2048);
 		if (checkRead == -1)
 		{
-			write(STDERR_FILENO,"Could read from file", 20);
+			write(STDERR_FILENO, "Could read from file", 20);
 			return (-1);
 		}
 	}
@@ -101,7 +101,7 @@ ssize_t _getline(char **line, size_t *num, int fildes)
 		checkRead = read(fildes, *line, *num);
 		if (checkRead == -1)
 		{
-			write(STDERR_FILENO,"Could read from file", 20);
+			write(STDERR_FILENO, "Could read from file", 20);
 			return (-1);
 		}
 	}
@@ -109,17 +109,16 @@ ssize_t _getline(char **line, size_t *num, int fildes)
 }
 
 /**
- * _strcmp - compares two strings
+ * str_cmp - compares two strings
  * @s1: pointer to string
  * @s2: pointer to second string
  *
  * Return: returns an Int
  */
-
 int str_cmp(char *s1, char *s2)
 {
 	int cmp;
-	
+
 	cmp = 0;
 	if (s1 != NULL && s2 != NULL)
 	{
