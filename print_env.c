@@ -19,19 +19,24 @@ int print_en(void)
 
 	return (0);
 }
-
+/**
+ * _setenv - manipulates environment variable
+ * @var: variable name
+ * @val: value held by variable
+ *
+ * Return: returns an integer
+ */
 int _setenv(char *var, char *val)
 {
 	int i, j, len;
 	char *newEnv[100];
 	char *newVar;
 
-	
 	if (var != NULL && val != NULL)
 	{
 		for (i = 0; i < 100; i++)
 			newEnv[i] = NULL;
-		
+
 		for (j = 0; environ[j]; j++)
 		{
 			newEnv[j] = str_dup(environ[j]);

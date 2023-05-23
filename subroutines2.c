@@ -18,9 +18,9 @@ char **string_split(char *str, char *sep, ssize_t len)
 
 	if (str[len - 1] == '\n') /* get rid of newline char */
 		str[len - 1] = '\0';
-
+	/* memory for array of strings */
 	numWords = numstr(str, ' ');
-	instruct = malloc(sizeof(char *) * numWords + 1);/* memory for array of strings */
+	instruct = malloc(sizeof(char *) * numWords + 1);
 	if (instruct == NULL)
 	{
 		perror("malloc");
@@ -37,7 +37,7 @@ char **string_split(char *str, char *sep, ssize_t len)
 	instruct[j] = NULL;
 	ex = a_toi(instruct[1]);
 	if (str_cmp(instruct[0], "exit") == 0)
-	{	
+	{
 		free(instruct);
 		exit(ex);
 	}

@@ -6,7 +6,7 @@
  *
  * Return: returns 0
  */
-int main(int ac __attribute__((unused)), char **av __attribute((unused)))
+int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 {
 	ssize_t nread;
 	/* char *buff = NULL; */
@@ -18,7 +18,7 @@ int main(int ac __attribute__((unused)), char **av __attribute((unused)))
 	{
 		prompt();
 		/* nread = getline(&buff, &num, stdin); */
-		nread = _getline(buff, &num, STDIN_FILENO); 
+		nread = _getline(buff, &num, STDIN_FILENO);
 		if (nread == 1 && buff[0] == '\n')
 			continue;
 		if (nread < 0)
@@ -28,9 +28,10 @@ int main(int ac __attribute__((unused)), char **av __attribute((unused)))
 			continue;
 
 		instruct = string_split(buff, " ", nread);
-		if (check_cmd(instruct) == -1){
+		if (check_cmd(instruct) == -1)
 			continue;
-		} else {
+		else
+		{
 			start_child(instruct);
 			free(instruct);
 		}

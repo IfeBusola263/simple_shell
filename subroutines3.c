@@ -125,10 +125,11 @@ int a_toi(char *str)
 			{
 				ret = (ret * 10) + (*str - '0');
 				str++;
-			} else {
+			} else
+			{
 				perror("atoi");
 				return (0);
-			}		
+			}
 		}
 		return (sgn * ret);
 	}

@@ -70,8 +70,8 @@ char *str_dup(char *s)
 ssize_t _getline(char *buff, size_t *num, int fildes)
 {
 	ssize_t numRead;
-	
-	while (1) 
+
+	while (1)
 	{
 		numRead = read(fildes, buff, BUFFSIZE);
 		if (numRead == -1)
