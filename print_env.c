@@ -19,3 +19,39 @@ int print_en(void)
 
 	return (0);
 }
+
+int _setenv(char *var, char *val)
+{
+	int i, j, len;
+	char *newEnv[100];
+	char *newVar;
+
+	
+	if (var != NULL && val != NULL)
+	{
+		for (i = 0; i < 100; i++)
+			newEnv[i] = NULL;
+		
+		for (j = 0; environ[j]; j++)
+		{
+			newEnv[j] = str_dup(environ[j]);
+			if (newEnv[j] == NULL)
+				return (-1);
+		}
+		len = str_len(var) + str_len(val);
+		newVar = malloc(sizeof(char) * (len + 1));
+		if (newVar == NULL)
+			return (-1);
+
+		str_cpy(newVar, var);
+		_strcat(newVar, "=");
+		_strcat(newVar, val);
+		newVar[len + 1] = '\0';
+
+		newEnv[j] = newVar;
+		environ = newEnv;
+
+		return (0);
+	}
+	return (-1);
+}

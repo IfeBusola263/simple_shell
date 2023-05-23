@@ -10,34 +10,36 @@
 
 char **string_split(char *str, char *sep, ssize_t len)
 {
-	ssize_t i, j = 0;
+	ssize_t j = 0;
 	size_t numWords;
 	char **instruct;
 	char *token;
+	int ex;
 
 	if (str[len - 1] == '\n') /* get rid of newline char */
 		str[len - 1] = '\0';
 
 	numWords = numstr(str, ' ');
-	instruct = malloc(sizeof(char *) * numWords);/* memory for array of strings */
+	instruct = malloc(sizeof(char *) * numWords + 1);/* memory for array of strings */
 	if (instruct == NULL)
 	{
 		perror("malloc");
 		return (NULL);
 	}
 
-	token = strtok(str, " ");
+	token = strtok(str, sep);
 	while (token != NULL)
 	{
 		instruct[j] = token; /* copy string to array of strings */
-		token = strtok(NULL, " ");
+		token = strtok(NULL, sep);
 		j++;
 	}
 	instruct[j] = NULL;
+	ex = a_toi(instruct[1]);
 	if (str_cmp(instruct[0], "exit") == 0)
-	{
+	{	
 		free(instruct);
-		exit(98);
+		exit(ex);
 	}
 	return (instruct);
 }
@@ -63,15 +65,11 @@ int check_cmd(char **cmds)
 	if (check == 0)
 		return (check);
 
-	dpath = getenv("PATH");
-	printf("%s\n", dpath);
-	printf("get : %s\n", getenv("PATH"));
+	dpath = _getenv("PATH");
 	token = strtok(dpath, ":");
-	printf("Got here 1\n");
 
 	while (token != NULL)
 	{
-		printf("Got here 2\n");
 		cmd_route = malloc(sizeof(char) * 100);
 		if (cmd_route == NULL)
 			return (-1);
@@ -85,9 +83,8 @@ int check_cmd(char **cmds)
 			cmds[0] = cmd_route;
 			return (0);
 		}
-		free(cmd_route);
+		/* free(cmd_route); */
 		token = strtok(NULL, ":");
-		printf("Got here 3\n");
 	}
 	perror(cmds[0]);
 	return (check);

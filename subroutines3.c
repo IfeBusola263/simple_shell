@@ -24,12 +24,13 @@ int cdry(char *cmds)
 
 	if (cmds[0] == 'c' && cmds[1] == 'd' && cmds[2] == '\n')
 	{
-		hm = getenv("HOME");
+		hm = _getenv("HOME");
 		if (chdir(hm) < 0)
 		{
 			perror("chdir");
 			return (-1);
 		}
+		free(hm);
 		return (0);
 	}
 	else if (cmds[0] == 'c' && cmds[1] == 'd' && cmds[2] == ' ')
@@ -62,7 +63,7 @@ char *_getenv(const char *name)
 
 	while (environ[i] != NULL)
 	{
-		if (strncmp(environ[i], name, strlen(name)) == 0)
+		if (_strncmp(environ[i], name, strlen(name)) == 0)
 	{
 		dupe = strdup(environ[i]);
 		token = strtok(dupe, "=");
@@ -86,10 +87,50 @@ int _strncmp(const char *str1, const char *str2, size_t n)
 {
 	size_t i = 0;
 
-	for (int i = 0; i < n; i++)
+	for (i = 0; i < n; i++)
 	{
 		if (str1[i] != str2[i])
 			return (-1);
+	}
+	return (0);
+}
+/**
+ * a_toi - converts integar represented string to integar
+ * @str: string to be converted
+ *
+ * Return: on success, integar equivalent else 0
+ */
+int a_toi(char *str)
+{
+	int ret = 0;
+	int sgn = 1;
+
+	if (str != NULL)
+	{
+		while (*str == ' ')/* Check for space */
+			str++;
+
+		if (*str == '+')	/* Check for signs */
+			str++;
+		else if (*str == '-')
+		{
+			sgn = -1;
+			str++;
+		}
+
+		/* convert char to int */
+		while (*str)
+		{
+			if (*str >= '0' && *str <= '9')
+			{
+				ret = (ret * 10) + (*str - '0');
+				str++;
+			} else {
+				perror("atoi");
+				return (0);
+			}		
+		}
+		return (sgn * ret);
 	}
 	return (0);
 }

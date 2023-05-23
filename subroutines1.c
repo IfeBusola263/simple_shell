@@ -63,49 +63,29 @@ char *str_dup(char *s)
  * _getline - reads string from file to a file descriptor
  * @num: number of bytes to be read
  * @fildes: file descriptor
- * @line: array of string
+ * @buff: array of chars
  *
  * Return: number of read characters
  */
-ssize_t _getline(char **line, size_t *num, int fildes)
+ssize_t _getline(char *buff, size_t *num, int fildes)
 {
-	ssize_t checkRead;
-
-	if (line == NULL && *num != 0)
+	ssize_t numRead;
+	
+	while (1) 
 	{
-		*line = malloc(sizeof(char) * *num);
-		if (line == NULL)
-		{
-			write(STDERR_FILENO, "memory could not be allocated", 29);
+		numRead = read(fildes, buff, BUFFSIZE);
+		if (numRead == -1)
 			return (-1);
-		}
-
-		checkRead = read(fildes, *line, *num);
-		if (checkRead < 0)
+		else if (numRead == 0)
+			break;
+		if (*(buff + numRead - 1) == '\n')
 		{
-			write(STDERR_FILENO, "Could read from file", 20);
-			return (-1);
+			*num = numRead;
+			*(buff + numRead) = '\0';
+			break;
 		}
 	}
-	else if (num == 0 && line != NULL)
-	{
-		checkRead = read(fildes, *line, 2048);
-		if (checkRead == -1)
-		{
-			write(STDERR_FILENO, "Could read from file", 20);
-			return (-1);
-		}
-	}
-	else
-	{
-		checkRead = read(fildes, *line, *num);
-		if (checkRead == -1)
-		{
-			write(STDERR_FILENO, "Could read from file", 20);
-			return (-1);
-		}
-	}
-	return (checkRead);
+	return (numRead);
 }
 
 /**
