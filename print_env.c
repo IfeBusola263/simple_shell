@@ -1,5 +1,10 @@
 #include "helper_func.h"
-
+/**
+ * sig_handle - handle signals
+ * @sig: void input
+ *
+ * Return: return nothing
+ */
 void sig_handle(int sig)
 {
 	(void)sig;
