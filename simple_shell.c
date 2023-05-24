@@ -31,14 +31,12 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		if (cdry(buff) == 0)
 			continue;
 
-		/* instruct = string_split(buff, " ", nread); */
 		string_split(buff, " ", nread, instruct);
 		if (check_cmd(instruct) == -1)
 			continue;
 		else
 		{
 			start_child(instruct);
-			/* _free(instruct); */
 		}
 		_free(instruct);
 	}
