@@ -35,9 +35,9 @@ char **string_split(char *str, char *sep, ssize_t len)
 		j++;
 	}
 	instruct[j] = NULL;
-	ex = a_toi(instruct[1]);
 	if (str_cmp(instruct[0], "exit") == 0)
 	{
+		ex = a_toi(instruct[1]);
 		free(instruct);
 		exit(ex);
 	}

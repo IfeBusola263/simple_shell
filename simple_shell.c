@@ -21,7 +21,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		nread = _getline(buff, &num, STDIN_FILENO);
 		if (nread == 1 && buff[0] == '\n')
 			continue;
-		if (nread < 0)
+		if (nread <= 0)
 			exit(0);
 
 		if (cdry(buff) == 0)
