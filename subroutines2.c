@@ -12,8 +12,6 @@
 void string_split(char *str, char *sep, ssize_t len, char **instruct)
 {
 	ssize_t j = 0;
-	/* size_t numWords = 0; */
-	/* char **instruct = NULL; */
 	char *token = NULL;
 	int ex = 0;
 
@@ -27,14 +25,12 @@ void string_split(char *str, char *sep, ssize_t len, char **instruct)
 		token = strtok(NULL, sep);
 		j++;
 	}
-	/*instruct[j] = NULL;*/
 	if (str_cmp(instruct[0], "exit") == 0)
 	{
 		ex = a_toi(instruct[1]);
 		 _free(instruct);
 		exit(ex);
 	}
-	/* return (instruct); */
 }
 
 /**

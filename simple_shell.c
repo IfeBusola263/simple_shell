@@ -9,7 +9,6 @@
 int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 {
 	ssize_t nread, i;
-	/* char *buff = NULL; */
 	char buff[BUFFSIZE];
 	size_t num = 0;
 	char *instruct[INSTSIZE];
@@ -21,7 +20,6 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 	{
 		if (isatty(STDIN_FILENO))
 			prompt();
-		/* nread = getline(&buff, &num, stdin); */
 		nread = _getline(buff, &num, STDIN_FILENO);
 		if (nread == 1 && buff[0] == '\n')
 			continue;
