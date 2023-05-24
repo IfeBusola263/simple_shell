@@ -40,10 +40,8 @@ int check_cmd(char **cmds, char *prgnm);
 int cdry(char *cmds);
 int _strncmp(char *str1, char *str2, size_t n);
 void _free(char **ptr);
-/* char *_getenv(char *name); */
 char *_getenv(char *name, char *dupe);
 int a_toi(char *str);
 size_t numstr(char *str, char sep);
 void string_split(char *str, char *sep, ssize_t len, char **instruct);
-/* char **string_split(char *str, char *sep, ssize_t len); */
 #endif /* HELPER_FUNC_H */
