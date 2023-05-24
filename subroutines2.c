@@ -19,13 +19,6 @@ void string_split(char *str, char *sep, ssize_t len, char **instruct)
 
 	if (str[len - 1] == '\n') /* get rid of newline char */
 		str[len - 1] = '\0';
-	/**
-	 * numWords = numstr(str, ' ');
-	 * instruct = malloc(sizeof(char *) * numWords + 1);
-	 * if (instruct == NULL){
-	 * perror("malloc");
-	 * return (NULL);
-	 */
 
 	token = strtok(str, sep);
 	while (token != NULL)
