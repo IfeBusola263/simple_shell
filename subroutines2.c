@@ -12,7 +12,7 @@ char **string_split(char *str, char *sep, ssize_t len)
 {
 	ssize_t j = 0;
 	size_t numWords;
-	char **instruct;
+	char **instruct = NULL;
 	char *token;
 	int ex;
 
@@ -38,7 +38,7 @@ char **string_split(char *str, char *sep, ssize_t len)
 	if (str_cmp(instruct[0], "exit") == 0)
 	{
 		ex = a_toi(instruct[1]);
-		free(instruct);
+		_free(instruct);
 		exit(ex);
 	}
 	return (instruct);
@@ -58,6 +58,7 @@ int check_cmd(char **cmds)
 	if (str_cmp(cmds[0], "env") == 0)
 	{
 		print_en();
+		_free(cmds);
 		return (-1);
 	}
 

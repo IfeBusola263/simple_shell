@@ -77,7 +77,7 @@ ssize_t _getline(char *buff, size_t *num, int fildes)
 		if (numRead == -1)
 			return (-1);
 		else if (numRead == 0)
-			break;
+			exit(0);
 		if (*(buff + numRead - 1) == '\n')
 		{
 			*num = numRead;

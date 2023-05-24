@@ -30,7 +30,7 @@ int cdry(char *cmds)
 			perror("chdir");
 			return (-1);
 		}
-		free(hm);
+		/* free(hm); */
 		return (0);
 	}
 	else if (cmds[0] == 'c' && cmds[1] == 'd' && cmds[2] == ' ')
@@ -39,7 +39,6 @@ int cdry(char *cmds)
 			i++;
 		cmds[i - 1] = '\0';
 		str_cpy(fileptr, (cmds + 3));
-		printf("%s\n ", fileptr);
 		if (chdir(fileptr) < 0)
 		{
 			perror("chdir");

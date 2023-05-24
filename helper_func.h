@@ -38,6 +38,7 @@ void start_child(char **instruct);
 int check_cmd(char **cmds);
 int cdry(char *cmds);
 int _strncmp(const char *str1, const char *str2, size_t n);
+void _free(char **ptr);
 char *_getenv(const char *name);
 int a_toi(char *str);
 size_t numstr(char *str, char sep);

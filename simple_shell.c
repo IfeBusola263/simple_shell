@@ -16,7 +16,9 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 
 	while (1)
 	{
-		prompt();
+		
+		if (isatty(STDIN_FILENO))
+			prompt();
 		/* nread = getline(&buff, &num, stdin); */
 		nread = _getline(buff, &num, STDIN_FILENO);
 		if (nread == 1 && buff[0] == '\n')
@@ -33,9 +35,9 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		else
 		{
 			start_child(instruct);
-			free(instruct);
+			_free(instruct);
 		}
-		/* free(buff); */
+		/*_free(instruct); */
 	}
 	exit(0);
 }
