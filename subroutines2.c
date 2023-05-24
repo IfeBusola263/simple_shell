@@ -36,10 +36,11 @@ void string_split(char *str, char *sep, ssize_t len, char **instruct)
 /**
  * check_cmd - checks if a command exists or not
  * @cmds: command argument
+ * @prgnm: program name
  *
  * Return: nothing
  */
-int check_cmd(char **cmds)
+int check_cmd(char **cmds, char *prgnm)
 {
 	int check;
 	char *cmd_route, *token, *dpath = NULL, dupe[BUFFSIZE];
@@ -70,13 +71,14 @@ int check_cmd(char **cmds)
 		check = access(cmd_route, X_OK);
 		if (check == 0)
 		{
+			_free(&cmds[0]);
 			cmds[0] = cmd_route;
 			return (0);
 		}
 		free(cmd_route);
 		token = strtok(NULL, ":");
 	}
-	perror(cmds[0]);
+	perror(prgnm);
 	return (check);
 }
 

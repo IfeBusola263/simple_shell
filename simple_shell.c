@@ -30,7 +30,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			continue;
 
 		string_split(buff, " ", nread, instruct);
-		if (check_cmd(instruct) == -1)
+		if (check_cmd(instruct, av[0]) == -1)
 			continue;
 		else
 		{
