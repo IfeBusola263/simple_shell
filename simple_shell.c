@@ -8,11 +8,14 @@
  */
 int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 {
-	ssize_t nread;
+	ssize_t nread, i;
 	/* char *buff = NULL; */
 	char buff[BUFFSIZE];
 	size_t num = 0;
-	char **instruct;
+	char *instruct[INSTSIZE];
+
+	for (i = 0; i < INSTSIZE; i++)
+		instruct[i] = NULL;
 
 	while (1)
 	{
@@ -28,15 +31,16 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		if (cdry(buff) == 0)
 			continue;
 
-		instruct = string_split(buff, " ", nread);
+		/* instruct = string_split(buff, " ", nread); */
+		string_split(buff, " ", nread, instruct);
 		if (check_cmd(instruct) == -1)
 			continue;
 		else
 		{
 			start_child(instruct);
-			_free(instruct);
+			/* _free(instruct); */
 		}
-		/*_free(instruct); */
+		_free(instruct);
 	}
 	exit(0);
 }

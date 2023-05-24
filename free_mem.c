@@ -9,17 +9,13 @@
 
 void _free(char **ptr)
 {
-	char **tmp;
-
 	if (ptr == NULL)
 		return;
 
-	tmp = ptr;
 	while (*ptr)
 	{
 		free(*ptr);
 		ptr++;
 	}
-	free(tmp);
 }
 

@@ -10,7 +10,6 @@
 void child(char *route, char *args[], char **ens)
 {
 	execve(route, args, ens);
-	perror("Could not execute");
 }
 /**
  * start_child - initiates child process

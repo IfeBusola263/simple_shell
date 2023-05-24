@@ -4,44 +4,44 @@
  * @str: string to be worked on
  * @sep: the delimiter that seperates strings
  * @len: length of string
+ * @instruct: array to populate
  *
- * Return: an arra of strings
+ * Return: an array of strings
  */
 
-char **string_split(char *str, char *sep, ssize_t len)
+void string_split(char *str, char *sep, ssize_t len, char **instruct)
 {
 	ssize_t j = 0;
-	size_t numWords;
-	char **instruct = NULL;
-	char *token;
-	int ex;
+	/* size_t numWords = 0; */
+	/* char **instruct = NULL; */
+	char *token = NULL;
+	int ex = 0;
 
 	if (str[len - 1] == '\n') /* get rid of newline char */
 		str[len - 1] = '\0';
-	/* memory for array of strings */
-	numWords = numstr(str, ' ');
-	instruct = malloc(sizeof(char *) * numWords + 1);
-	if (instruct == NULL)
-	{
-		perror("malloc");
-		return (NULL);
-	}
+	/**
+	 * numWords = numstr(str, ' ');
+	 * instruct = malloc(sizeof(char *) * numWords + 1);
+	 * if (instruct == NULL){
+	 * perror("malloc");
+	 * return (NULL);
+	 */
 
 	token = strtok(str, sep);
 	while (token != NULL)
 	{
-		instruct[j] = token; /* copy string to array of strings */
+		instruct[j] = str_dup(token); /* copy string to array of strings */
 		token = strtok(NULL, sep);
 		j++;
 	}
-	instruct[j] = NULL;
+	/*instruct[j] = NULL;*/
 	if (str_cmp(instruct[0], "exit") == 0)
 	{
 		ex = a_toi(instruct[1]);
-		_free(instruct);
+		 _free(instruct);
 		exit(ex);
 	}
-	return (instruct);
+	/* return (instruct); */
 }
 
 /**
@@ -53,7 +53,7 @@ char **string_split(char *str, char *sep, ssize_t len)
 int check_cmd(char **cmds)
 {
 	int check;
-	char *cmd_route, *token, *dpath = NULL;
+	char *cmd_route, *token, *dpath = NULL, dupe[BUFFSIZE];
 
 	if (str_cmp(cmds[0], "env") == 0)
 	{
@@ -66,7 +66,7 @@ int check_cmd(char **cmds)
 	if (check == 0)
 		return (check);
 
-	dpath = _getenv("PATH");
+	dpath = _getenv("PATH", dupe);
 	token = strtok(dpath, ":");
 
 	while (token != NULL)
@@ -84,7 +84,7 @@ int check_cmd(char **cmds)
 			cmds[0] = cmd_route;
 			return (0);
 		}
-		/* free(cmd_route); */
+		free(cmd_route);
 		token = strtok(NULL, ":");
 	}
 	perror(cmds[0]);
@@ -98,7 +98,7 @@ int check_cmd(char **cmds)
  *
  * Return:destination
  */
-char *_strcat(char *dest, const char *src)
+char *_strcat(char *dest, char *src)
 {
 	size_t i = 0;
 	size_t j = 0;

@@ -24,7 +24,7 @@ int cdry(char *cmds)
 
 	if (cmds[0] == 'c' && cmds[1] == 'd' && cmds[2] == '\n')
 	{
-		hm = _getenv("HOME");
+		hm = _getenv("HOME", fileptr);
 		if (chdir(hm) < 0)
 		{
 			perror("chdir");
@@ -52,24 +52,26 @@ int cdry(char *cmds)
 /**
  * _getenv - gets specific environment variable
  * @name: variable name in the environment
+ * @dupe: copy of environment variable with the value
  *
  * Return: pointer to the value of the variable
  */
-char *_getenv(const char *name)
+char *_getenv(char *name, char *dupe)
 {
 	int i = 0;
-	char *token, *dupe;
+	char *token;
 
 	while (environ[i] != NULL)
 	{
-		if (_strncmp(environ[i], name, strlen(name)) == 0)
-	{
-		dupe = strdup(environ[i]);
-		token = strtok(dupe, "=");
-		token = strtok(NULL, "=");
-		return (token);
-	}
-	i++;
+		if (_strncmp(environ[i], name, str_len(name)) == 0)
+		{
+			str_cpy(dupe, environ[i]);
+			dupe[str_len(dupe)] = '\0';
+			token = strtok(dupe, "=");
+			token = strtok(NULL, "=");
+			return (token);
+		}
+		i++;
 	}
 	return (NULL);
 }
@@ -82,7 +84,7 @@ char *_getenv(const char *name)
  *
  * Return: 0 or -1
  */
-int _strncmp(const char *str1, const char *str2, size_t n)
+int _strncmp(char *str1, char *str2, size_t n)
 {
 	size_t i = 0;
 
