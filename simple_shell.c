@@ -16,6 +16,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 	for (i = 0; i < INSTSIZE; i++)
 		instruct[i] = NULL;
 
+	signal(SIGINT, sig_handle);
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))

@@ -1,4 +1,12 @@
 #include "helper_func.h"
+
+void sig_handle(int sig)
+{
+	(void)sig;
+	write(STDOUT_FILENO, "\n", 2);
+	prompt();
+}
+
 /**
  * print_en - printd the prsent working environment
  *

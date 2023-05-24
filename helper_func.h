@@ -34,6 +34,7 @@ char *_strcat(char *dest, char *src);
 void child(char *route, char *args[], char **ens);
 int print_en(void);
 void prompt(void);
+void sig_handle(int sig);
 int str_cmp(char *s1, char *s2);
 void start_child(char **instruct);
 int check_cmd(char **cmds, char *prgnm);
