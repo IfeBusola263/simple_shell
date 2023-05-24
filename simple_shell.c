@@ -16,7 +16,6 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 
 	while (1)
 	{
-		
 		if (isatty(STDIN_FILENO))
 			prompt();
 		/* nread = getline(&buff, &num, stdin); */
