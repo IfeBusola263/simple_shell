@@ -30,11 +30,20 @@ int cdry(char *cmds)
 			perror("chdir");
 			return (-1);
 		}
-		/* free(hm); */
 		return (0);
 	}
 	else if (cmds[0] == 'c' && cmds[1] == 'd' && cmds[2] == ' ')
 	{
+		if (cmds[3] == '-')
+		{
+			hm = _getenv("OLDPWD", fileptr);
+			if (chdir(hm) < 0)
+			{
+				perror("chdir");
+				return (-1);
+			}
+			return (0);
+		}
 		for (i = 0; cmds[i] != '\0';)
 			i++;
 		cmds[i - 1] = '\0';
