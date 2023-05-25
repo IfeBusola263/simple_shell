@@ -13,7 +13,6 @@ void string_split(char *str, char *sep, ssize_t len, char **instruct)
 {
 	ssize_t j = 0;
 	char *token = NULL;
-	/*int ex = 0;*/
 
 	if (str[len - 1] == '\n') /* get rid of newline char */
 		str[len - 1] = '\0';
@@ -25,18 +24,6 @@ void string_split(char *str, char *sep, ssize_t len, char **instruct)
 		token = strtok(NULL, sep);
 		j++;
 	}
-	/**
-	 * if (str_cmp(instruct[0], "exit") == 0)
-	 * {
-	 * ex = a_toi(instruct[1]);
-	 * if (ex == -1){
-	 * exit_msg();
-	 * ex = 0;
-	 * }
-	 * _free(instruct);
-	 * exit(ex);
-	 * }
-	 */
 }
 
 /**
