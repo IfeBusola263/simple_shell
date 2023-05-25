@@ -46,4 +46,4 @@ char *_getenv(char *name, char *dupe);
 int a_toi(char *str);
 size_t numstr(char *str, char sep);
 void string_split(char *str, char *sep, ssize_t len, char **instruct);
-#endif /* HELPER_FUNC_H */
+#endif /* HELPER_*/_
