@@ -11,11 +11,14 @@
 
 void string_split(char *str, char *sep, ssize_t len, char **instruct)
 {
-	ssize_t j = 0;
+	ssize_t i, j = 0;
 	char *token = NULL;
 
 	if (str[len - 1] == '\n') /* get rid of newline char */
 		str[len - 1] = '\0';
+	for (i = 0; str[i]; i++)
+		if (str[i] == '#')
+			str[i] = '\0';
 
 	token = strtok(str, sep);
 	while (token != NULL)
