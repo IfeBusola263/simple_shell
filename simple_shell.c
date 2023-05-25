@@ -31,12 +31,13 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			continue;
 
 		string_split(buff, " ", nread, instruct);
+		if (str_cmp(instruct[0], "exit") == 0)
+			exit_msg(av[0], instruct);
+
 		if (check_cmd(instruct, av[0]) == -1)
 			continue;
 		else
-		{
 			start_child(instruct);
-		}
 		_free(instruct);
 	}
 	exit(0);

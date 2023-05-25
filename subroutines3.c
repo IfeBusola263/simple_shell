@@ -128,8 +128,7 @@ int a_toi(char *str)
 				str++;
 			} else
 			{
-				perror("atoi");
-				return (0);
+				return (-1);
 			}
 		}
 		return (sgn * ret);

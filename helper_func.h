@@ -39,6 +39,7 @@ int str_cmp(char *s1, char *s2);
 void start_child(char **instruct);
 int check_cmd(char **cmds, char *prgnm);
 int cdry(char *cmds);
+void exit_msg(char *progmn, char **cmdname);
 int _strncmp(char *str1, char *str2, size_t n);
 void _free(char **ptr);
 char *_getenv(char *name, char *dupe);
