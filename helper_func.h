@@ -1,6 +1,7 @@
 #ifndef HELPER_FUNC_H
 #define HELPER_FUNC_H
 #include <sys/types.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
