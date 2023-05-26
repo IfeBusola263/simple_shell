@@ -40,6 +40,7 @@ int check_cmd(char **cmds, char *prgnm)
 {
 	int check;
 	char *cmd_route, *token, *dpath = NULL, dupe[BUFFSIZE];
+	char *temp;
 
 	if (str_cmp(cmds[0], "env") == 0)
 	{
@@ -67,8 +68,9 @@ int check_cmd(char **cmds, char *prgnm)
 		check = access(cmd_route, X_OK);
 		if (check == 0)
 		{
-			_free(&cmds[0]);
+			temp = cmds[0];
 			cmds[0] = cmd_route;
+			free(temp);
 			return (0);
 		}
 		free(cmd_route);

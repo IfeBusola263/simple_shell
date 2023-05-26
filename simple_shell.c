@@ -24,8 +24,8 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		nread = _getline(buff, &num, STDIN_FILENO);
 		if (nread == 1 && buff[0] == '\n')
 			continue;
-		if (nread <= 0)
-			exit(0);
+		/* if (nread <= 0)
+			exit(0);*/
 
 		if (cdry(buff) == 0)
 			continue;
@@ -35,7 +35,10 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			exit_msg(av[0], instruct);
 
 		if (check_cmd(instruct, av[0]) == -1)
+		{
+			_free(instruct);
 			continue;
+		}
 		else
 			start_child(instruct);
 		_free(instruct);
