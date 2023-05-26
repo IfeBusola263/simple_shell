@@ -41,13 +41,13 @@ void exit_msg(char *progmn, char **cmdname)
 	ex = a_toi(excode);
 	if (ex < 0)
 	{
-		write(STDOUT_FILENO, progmn, str_len(progmn));
-		write(STDOUT_FILENO, ": ", 3);
-		write(STDOUT_FILENO, cmdname[0], str_len(cmdname[0]));
-		write(STDOUT_FILENO, ": ", 3);
-		write(STDOUT_FILENO, "illegal Number", 14);
-		write(STDOUT_FILENO, ": ", 3);
-		write(STDOUT_FILENO, cmdname[1], str_len(cmdname[1]));
+		write(STDERR_FILENO, progmn, str_len(progmn));
+		write(STDERR_FILENO, ": ", 3);
+		write(STDERR_FILENO, cmdname[0], str_len(cmdname[0]));
+		write(STDERR_FILENO, ": ", 3);
+		write(STDERR_FILENO, "illegal Number", 14);
+		write(STDERR_FILENO, ": ", 3);
+		write(STDERR_FILENO, cmdname[1], str_len(cmdname[1]));
 		ex = 0;
 	}
 	_free(cmdname);
